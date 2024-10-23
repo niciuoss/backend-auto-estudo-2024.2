@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: API Rest, CRUD completo para auto estudo
+  description: API para acessar uma lista de produtos
+  version: 1.0.0
+servers:
+  - url: backend-auto-estudo-20242-production.up.railway.app
+    description: Servidor local de desenvolvimento
+paths:
+  /produtos:
+    get:
+      summary: Listar todos os produtos da lista
+      description: Retorna uma lista com todos os produtos disponíveis.
+      responses:
+        '200':
+          description: Lista de produtos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+    post:
+      summary: Adicionar um novo produto na lista
+      description: Cria um novo produto e adiciona a lista.
+      requestBody:
+        description: Dados do novo produto na lista
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+      responses:
+        '201':
+          description: Produto criado com sucesso na lista
+
+  /produtos/{id}:
+    get:
+      summary: Obter produto da lista por ID
+      description: Retorna os detalhes de um produto específico na lista.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: ID do produto
+      responses:
+        '200':
+          description: Produto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+        '404':
+          description: Produto não encontrado
+
+    put:
+      summary: Atualizar produto por ID
+      description: Atualiza as informações de um produto específico da lista.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: ID do produto a ser atualizado na lista
+      requestBody:
+        description: Dados da lista atualizados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+      responses:
+        '200':
+          description: Produto atualizado com sucesso na lista
+        '404':
+          description: Produto não encontrado na lista
+
+    delete:
+      summary: Excluir produto por ID
+      description: Remove um produto da lista.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: ID do produto a ser removido
+      responses:
+        '204':
+          description: Produto excluído com sucesso da lista
+        '404':
+          description: Produto não encontrado na lista
+
+components:
+  schemas:
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: "item 01"
+        preco:
+          type: number
+          format: float
+          example: 2999.99
