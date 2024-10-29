@@ -165,15 +165,15 @@
             "type": "integer",
             "example": 1
           },
-          "titulo": {
+          "title": {
             "type": "string",
             "example": "Comprar mantimentos"
           },
-          "descricao": {
+          "description": {
             "type": "string",
             "example": "Comprar leite, ovos e pão."
           },
-          "concluida": {
+          "completed": {
             "type": "boolean",
             "example": false
           }
