@@ -24,7 +24,7 @@ public class ToDoController {
         return toDoService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/todos/{id}")
     public ResponseEntity<ToDo> getTodoById(@PathVariable Long id) {
         Optional<ToDo> todo = toDoService.findById(id);
         return todo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -36,7 +36,7 @@ public class ToDoController {
         return new ResponseEntity<>(savedToDo, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/todos/{id}")
     public ResponseEntity<ToDo> updateTodo(@PathVariable Long id, @RequestBody ToDo toDo) {
         Optional<ToDo> existingTodo = toDoService.findById(id);
         if (existingTodo.isPresent()) {
@@ -48,7 +48,7 @@ public class ToDoController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/todos/{id}")
     public ResponseEntity<Void> deleteTodoById(@PathVariable Long id) {
         toDoService.deleteById(id);
         return ResponseEntity.noContent().build();
