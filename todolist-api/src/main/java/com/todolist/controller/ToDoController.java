@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/todos")
+@CrossOrigin(origins = "*")
 public class ToDoController {
 
     private final ToDoService toDoService;
@@ -24,7 +25,7 @@ public class ToDoController {
         return toDoService.findAll();
     }
 
-    @GetMapping("/api/todos/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ToDo> getTodoById(@PathVariable Long id) {
         Optional<ToDo> todo = toDoService.findById(id);
         return todo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -36,7 +37,7 @@ public class ToDoController {
         return new ResponseEntity<>(savedToDo, HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/todos/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ToDo> updateTodo(@PathVariable Long id, @RequestBody ToDo toDo) {
         Optional<ToDo> existingTodo = toDoService.findById(id);
         if (existingTodo.isPresent()) {
@@ -48,7 +49,7 @@ public class ToDoController {
         }
     }
 
-    @DeleteMapping("/api/todos/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTodoById(@PathVariable Long id) {
         toDoService.deleteById(id);
         return ResponseEntity.noContent().build();
