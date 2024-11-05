@@ -35,7 +35,7 @@ paths:
       responses:
         "201":
           description: Tarefa criada com sucesso
-  /{id}:
+  /api/todos/{id}:
     get:
       summary: Obter tarefa por ID
       description: Retorna os detalhes de uma tarefa específica.
